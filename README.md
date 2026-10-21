@@ -18,7 +18,7 @@ libraries). Successor to Yaku Canvas (v0.1.0), rebuilt around execution.
 ## Install
 
 Hermes Desktop → plugin manager → **Install from Git** →
-`https://github.com/Gabebac/Pipe-Plugin` → check **Desktop** + **Agent**.
+`https://github.com/Gabebac/Pipe-Runvas` → check **Desktop** + **Agent**.
 
 ## Architecture (short)
 
