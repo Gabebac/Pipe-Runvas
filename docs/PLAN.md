@@ -1,7 +1,7 @@
 # PLAN.md — Pipe v0.2 build plan (post-recon)
 
 Ordered by "makes editing usable" → "makes it a runner" → "makes it a toolbox".
-Every phase ends runnable + verified, committed to `Gabebac/Pipe-Plugin`.
+Every phase ends runnable + verified, committed to `Gabebac/Pipe-Runvas`.
 
 ## Phase A — canvas core rebuild (the editing complaint)
 1. **Board transform layer**: one `{x,y,scale}` on a transformed `<div>`; nodes
