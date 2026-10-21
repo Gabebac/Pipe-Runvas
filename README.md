@@ -37,14 +37,13 @@ Hermes Desktop → plugin manager → **Install from Git** →
 ## Repo layout
 
 ```
-plugin.yaml       plugin manifest + agent tools
-__init__.py       tool registration
-service.py        storage (boards, runs)
-runner.py         graph executor + target routing
-targets/          n8n.py · comfy.py · agent.py
-tools.py          pipe_* agent tools
-desktop/plugin.js canvas UI for Hermes Desktop
-docs/             DECISIONS.md · RUNNER.md, extraction evidence
+plugin.yaml       plugin manifest (id: pipe) + agent tools
+__init__.py       tool registration (pipe_* — 7 tools, schema-driven)
+service.py        one operator-bound Pipe bridge (revisions, auth checks)
+configure.py      operator-only binding helper (never run in chat)
+desktop/plugin.js canvas UI for Hermes Desktop (unified-package half)
+dashboard/        manifest.json · plugin_api.py backend routes
+docs/             DECISIONS.md · RUNNER.md · YAKU-EVIDENCE.md · HERMES-PLUGIN-PACKAGE.md (operator/install policy)
 ```
 
 ## Dev notes

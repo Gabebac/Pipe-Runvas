@@ -1,0 +1,6 @@
+{
+  "name": "pipe",
+  "label": "Pipe",
+  "description": "Fixed-binding private Pipe workspace bridge",
+  "api": "plugin_api.py"
+}

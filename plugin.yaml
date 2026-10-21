@@ -1,0 +1,12 @@
+name: pipe
+version: 0.1.0
+description: Single-workspace Pipe client — native notes and read-only board designs, with revision-safe agent tools.
+author: Pipe
+provides_tools:
+  - pipe_list_projects
+  - pipe_get_project
+  - pipe_create_project
+  - pipe_list_documents
+  - pipe_get_document
+  - pipe_create_document
+  - pipe_update_document
