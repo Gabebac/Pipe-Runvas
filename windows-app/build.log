@@ -1,0 +1,10 @@
+=== tauri build (successful run, cargo build --release rc=0 confirmed first) ===
+Finished `release` profile [optimized] target(s) in 23.06s
+    Info Patching C:\Users\Gabriel\AppData\Local\Temp\pipe-runvas-target\release\pipe-runvas.exe with bundle type information: nsis
+    Running makensis to produce C:\Users\Gabriel\AppData\Local\Temp\pipe-runvas-target\release\bundle\nsis\Pipe Runvas_0.1.0_x64-setup.exe
+    Finished 1 bundle at:
+        C:\Users\Gabriel\AppData\Local\Temp\pipe-runvas-target\release\bundle\nsis\Pipe Runvas_0.1.0_x64-setup.exe (1.77 MiB)
+=== verification ===
+installer sha256: 8295c10b5d319cd2106355e423ccb37d31999cd5ce2618068b70c93af161d43c
+installed-copy size: 1859054 bytes
+app exe launch smoke test: window process ran 6s, closed cleanly on WM_CLOSE

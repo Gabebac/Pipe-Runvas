@@ -1,55 +1,46 @@
-# Pipe
+# Pipe Runvas
 
-Hermes Desktop plugin: a node canvas where you **design** protocols, pipelines,
-workflows, reference guides, libraries, wiring diagrams and build plans — and
-**use** what you made (run pipelines, hand graphs to the agent, reuse graphs as
-libraries). Successor to Yaku Canvas (v0.1.0), rebuilt around execution.
+Pipe — project/document workspace with a web app (desktop + mobile), a native
+Hermes Desktop plugin, and a standalone Windows shell. Successor to Yaku Canvas.
 
-## What you can do
+This repository currently ships the **v0.1 unified Hermes plugin** at its root.
+The docs in `docs/` mix shipped design and the v0.2 product vision; the vision
+(n8n/ComfyUI runner, board products, library) is **planned, not in this repo**.
 
-| Board kind | You design | "Use it" means |
+## What is shipped
+
+| Piece | Where | Status |
 |---|---|---|
-| `reference` | boards of sources/notes (YouTube/TikTok/Reddit/web + notes) | grounded chat citing `[S1]`… — the original Yaku flow |
-| `pipeline` | action graphs wired node→node | **Run** executes it (n8n actions, agent tools) |
-| `model` | AI-model graphs | **Run** on ComfyUI (gaming PC GPU) |
-| `diagram` | wiring / electronic / build-plan nodes | visual reference the agent can read |
-| `library` | reusable nodes/subgraphs | drop into any other board |
+| Web app (desktop + mobile) | https://pipe-trial.taild8e584.ts.net/ (private tailscale HTTPS) | live, cert-validated, unauthenticated reads 401 |
+| Hermes Desktop plugin | this repo root (`plugin.yaml`, see `docs/HERMES-PLUGIN-PACKAGE.md`) | v0.1.0, tag `pipe-v0.1.0` |
+| Windows shell app | `windows-app/` (Tauri 2 / WebView2, NSIS per-user installer) | v0.1.0 alpha, unsigned, owner-installed |
 
-## Install
+## Install the Hermes Desktop plugin
 
-Hermes Desktop → plugin manager → **Install from Git** →
-`https://github.com/Gabebac/Pipe-Runvas` → check **Desktop** + **Agent**.
+Hermes Desktop -> plugin manager -> **Install from Git** ->
+`https://github.com/Gabebac/Pipe-Runvas`
 
-## Architecture (short)
+Provides the seven agent tools (`pipe_list_projects`, `pipe_get_project`,
+`pipe_create_project`, `pipe_list_documents`, `pipe_get_document`,
+`pipe_create_document`, `pipe_update_document`) and the native `/pipe` tab.
 
-- **Boards** are JSON graphs (nodes + typed ports + edges) in
-  `plugin-data/pipe/boards/`. The desktop canvas and the agent's `pipe_*`
-  tools read/write the same store.
-- **Runner** (`runner.py`) executes a `pipeline`/`model` graph topologically:
-  - `n8n` backend — real action pipelines, your provider keys (verified: healthz OK)
-  - `comfy` backend — local model workflows (gaming PC at 192.168.0.68:8188;
-    offline-aware: queues + notifies instead of failing)
-  - `agent` backend — runs an agent tool as a node
-- **Canvas** (desktop/plugin.js): transform `{x,y,scale}`, ctrl+wheel zoom,
-  port-drag wiring, resize handles, marquee select — interaction model recovered
-  by decompiling the real Yaku 1.1.7 app (see `docs/DECISIONS.md`).
+**Binding policy: read `docs/HERMES-PLUGIN-PACKAGE.md` before enabling.** Choose
+exactly one mode (`agent-only`, `verified-session`, `local-process-capability`).
+In this release scope the desktop/editor binding is not to be enabled before its
+operator gate; agent-only tools are the reviewed slice. Configuration runs
+through `configure.py` on the approved backend; no credentials belong in
+argv, chat, or logs.
 
-## Repo layout
+## Windows app
 
-```
-plugin.yaml       plugin manifest (id: pipe) + agent tools
-__init__.py       tool registration (pipe_* — 7 tools, schema-driven)
-service.py        one operator-bound Pipe bridge (revisions, auth checks)
-configure.py      operator-only binding helper (never run in chat)
-desktop/plugin.js canvas UI for Hermes Desktop (unified-package half)
-dashboard/        manifest.json · plugin_api.py backend routes
-docs/             DECISIONS.md · RUNNER.md · YAKU-EVIDENCE.md · HERMES-PLUGIN-PACKAGE.md (operator/install policy)
-```
+Source in `windows-app/`, build steps in `windows-app/README-BUILD.md`, verified
+record in `windows-app/BUILD-RECORD.md`. The shell loads exactly
+`https://pipe-trial.taild8e584.ts.net` (origin-locked, no IPC, no popups,
+default-deny permissions, per-user install with a mandatory running-app refusal
+in installer and uninstaller). The v1.0 installer will be signed (plan WR-2);
+this alpha is unsigned by owner decision.
 
-## Dev notes
+## v0.2 vision (docs only)
 
-- Backend services verified from the Hermes backend 2026-10-15:
-  n8n `http://192.168.0.78:5678/healthz` → ok; ComfyUI `192.168.0.68:8188` →
-  timeout (PC asleep — runner treats it as offline).
-- Yaku upstream provenance: interaction model + fetch chain via REA
-  decompilation, clean-room reimplementation — no Yaku code copied.
+Canvas runner with n8n/ComfyUI targets, board kinds, libraries: see
+`docs/PLAN.md` (build plan v0.2) — none of it is implemented here yet.
